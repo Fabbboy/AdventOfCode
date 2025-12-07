@@ -1,0 +1,3 @@
+pragma Profile (Ravenscar);
+pragma Restrictions (No_Allocators);
+pragma Restrictions (No_Exceptions);

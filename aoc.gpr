@@ -9,7 +9,10 @@ project Aoc is
    for Main use ("aoc.adb");
 
    package Compiler is
-      for Default_Switches ("Ada") use Aoc_Config.Ada_Compiler_Switches;
+      for Default_Switches ("Ada") use 
+         Aoc_Config.Ada_Compiler_Switches & 
+         ("-gnatec=" & Project'Project_Dir & "/pragma.adc")
+         ;
    end Compiler;
 
    package Binder is
