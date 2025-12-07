@@ -1,4 +1,9 @@
+with Ada.Streams.Stream_IO;
+with Ada.Directories;
+
 package body Utility is
+   use Ada.Streams.Stream_IO;
+   use Ada.Directories;
 
    function parse_int (S : String; Result : out Integer) return Boolean is
 
@@ -45,4 +50,17 @@ package body Utility is
       return True;
 
    end parse_int;
+
+   function read_file (Path : String) return String is
+      F    : File_Type;
+      FS : constant File_Size := Size (Path);
+      Buf  : String (1 .. Integer (FS));
+      S    : Stream_Access;
+   begin
+      Open (F, In_File, Path);
+      S := Stream (F);
+      String'Read (S, Buf);
+      Close (F);
+      return Buf;
+   end read_file;
 end Utility;
