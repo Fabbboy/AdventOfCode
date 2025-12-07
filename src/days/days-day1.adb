@@ -22,9 +22,11 @@ package body Days.Day1 is
          end loop;
 
          declare
-            Val     : Integer;
-            Line    : constant String := Input (Start .. Stop - 1);
-            Numbers : constant String :=
+            Val : Integer;
+
+            CounterBk : constant Integer := Counter;
+            Line      : constant String := Input (Start .. Stop - 1);
+            Numbers   : constant String :=
               Line (Line'First + Direction_Offset .. Line'Last);
          begin
             if Line'Length = 0 then
@@ -43,14 +45,29 @@ package body Days.Day1 is
             end if;
 
             if Mode = Direction_Allowed (1) then
-               Counter := (Counter + Val) mod Limit;
+               declare
+                  Raw   : constant Integer := CounterBk + Val;
+                  Cross : constant Integer := Raw / Limit;
+               begin
+                  Counter := Raw mod Limit;
+                  Zeroes := Zeroes + Cross;
+               end;
+
             else
-               Counter := (Counter - Val) mod Limit;
+               declare
+                  Raw   : constant Integer := CounterBk - Val;
+                  Cross : constant Integer := (-Raw + (Limit - 1)) / Limit;
+               begin
+                  Counter := ((Raw mod Limit) + Limit) mod Limit;
+                  Zeroes := Zeroes + Cross;
+               end;
+
             end if;
 
             if Counter = 0 then
                Zeroes := Zeroes + 1;
             end if;
+
 
             <<Next>>
          end;
