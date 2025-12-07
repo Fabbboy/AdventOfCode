@@ -52,7 +52,6 @@ package body Days.Day1 is
                   Counter := Raw mod Limit;
                   Zeroes := Zeroes + Cross;
                end;
-
             else
                declare
                   Raw   : constant Integer := CounterBk - Val;
@@ -61,7 +60,6 @@ package body Days.Day1 is
                   Counter := ((Raw mod Limit) + Limit) mod Limit;
                   Zeroes := Zeroes + Cross;
                end;
-
             end if;
 
             if Counter = 0 then
